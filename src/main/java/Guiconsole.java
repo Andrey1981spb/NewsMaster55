@@ -1,0 +1,52 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Guiconsole {
+
+    private JTextField titleNews;
+    private JTextArea contentNews;
+    private JButton pushNews;
+
+    String mtitle;
+    String mcontent;
+
+    public Guiconsole() {
+
+        JFrame jFrame = new JFrame("Консоль для пуш-уведомлений");
+
+        jFrame.setSize(230, 150);
+
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        titleNews = new JTextField(30);
+        contentNews = new JTextArea(10, 39);
+        pushNews = new JButton();
+
+        jFrame.add(titleNews);
+        jFrame.add(contentNews);
+        jFrame.add(pushNews);
+
+        jFrame.setLayout(new FlowLayout());
+        jFrame.setVisible(true);
+
+        ActionListener actionlistener = new SQLActionListener();
+
+        pushNews.addActionListener(actionlistener);
+    }
+
+    public class SQLActionListener implements ActionListener {
+        public void actionPerformed(ActionEvent e) {
+
+            PushModifier pushModifier = new PushModifier();
+
+            mtitle = titleNews.getText();
+            mcontent = contentNews.getText();
+
+            Pushdata pushdata = new Pushdata(mtitle, mcontent);
+            pushModifier.savePushdata(pushdata);
+        }
+    }
+
+}

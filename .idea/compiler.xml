@@ -9,5 +9,8 @@
         <module name="NewsMaster" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="NewsMaster" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>

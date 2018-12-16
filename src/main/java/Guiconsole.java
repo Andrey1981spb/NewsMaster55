@@ -5,16 +5,16 @@ import java.awt.event.ActionListener;
 
 public class Guiconsole {
 
-    private JTextField titleNews;
-    private JTextArea contentNews;
-    private JButton pushNews;
+    private final JTextField titleNews;
+    private final JTextArea contentNews;
+    private final JButton pushNews;
 
     String mtitle;
     String mcontent;
 
     public Guiconsole() {
 
-        JFrame jFrame = new JFrame("Консоль для пуш-уведомлений");
+        final JFrame jFrame = new JFrame("Консоль для пуш-уведомлений");
 
         jFrame.setSize(230, 150);
 
@@ -31,7 +31,7 @@ public class Guiconsole {
         jFrame.setLayout(new FlowLayout());
         jFrame.setVisible(true);
 
-        ActionListener actionlistener = new SQLActionListener();
+       final ActionListener actionlistener = new SQLActionListener();
 
         pushNews.addActionListener(actionlistener);
     }
@@ -39,12 +39,12 @@ public class Guiconsole {
     public class SQLActionListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
 
-            PushModifier pushModifier = new PushModifier();
+            final PushModifier pushModifier = new PushModifier();
 
             mtitle = titleNews.getText();
             mcontent = contentNews.getText();
 
-            Pushdata pushdata = new Pushdata(mtitle, mcontent);
+            final Pushdata pushdata = new Pushdata(mtitle, mcontent);
             pushModifier.savePushdata(pushdata);
         }
     }

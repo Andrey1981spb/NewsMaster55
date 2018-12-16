@@ -1,11 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: andrej
-  Date: 08.11.18
-  Time: 14:23
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -57,6 +50,7 @@
 
 <div>
     <ul>
+        <jsp:useBean id="listofpush" scope="request" type="java.util.List<Pushdata>"/>
         <c:forEach items="${listofpush}" var="pushdata">
             <li><c:out value="${pushdata.title}"/></li>
             <br/>
@@ -69,8 +63,8 @@
 
 <div class="modal" id="modalDialog">
     <form method="post" action="PushNewsServlet">
-        <input type="text" name="title">
-        <input type="text" name="content">
+        <input type= "text" name="content">
+        <input type= "text" name="title">
         <input type="submit" value="Сохранить" name="putInApp">
     </form>
     <input type="button" value="Закрыть" onclick="modal_close()">

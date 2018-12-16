@@ -51,7 +51,7 @@ public class UserDAO {
 
     public List<Pushdata> findAll() {
         List<Pushdata> users = (List<Pushdata>)
-                factoryClass.getSessionFactory().openSession().createQuery("from Pushdata").list();
+                factoryClass.getSessionFactory().openSession().createQuery("select '*' from Pushdata" ).list();
         return users;
     }
 

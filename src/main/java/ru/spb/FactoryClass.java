@@ -1,3 +1,5 @@
+package ru.spb;
+
 import com.fasterxml.classmate.AnnotationConfiguration;
 import org.hibernate.HibernateException;
 import org.hibernate.SessionFactory;

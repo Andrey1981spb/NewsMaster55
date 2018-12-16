@@ -1,3 +1,5 @@
+package ru.spb;
+
 import java.util.List;
 
 public class PushModifier {

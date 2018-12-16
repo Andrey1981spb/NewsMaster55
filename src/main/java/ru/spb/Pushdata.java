@@ -1,3 +1,5 @@
+package ru.spb;
+
 import javax.persistence.*;
 
 

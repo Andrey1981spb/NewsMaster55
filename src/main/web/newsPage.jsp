@@ -50,7 +50,7 @@
 
 <div>
     <ul>
-        <jsp:useBean id="listofpush" scope="request" type="java.util.List<Pushdata>"/>
+        <jsp:useBean id="listofpush" scope="request" type="java.util.List<ru.spb.Pushdata>"/>
         <c:forEach items="${listofpush}" var="pushdata">
             <li><c:out value="${pushdata.title}"/></li>
             <br/>
@@ -62,7 +62,7 @@
 
 
 <div class="modal" id="modalDialog">
-    <form method="post" action="PushNewsServlet">
+    <form method="post" action="newsPage">
         <input type= "text" name="content">
         <input type= "text" name="title">
         <input type="submit" value="Сохранить" name="putInApp">

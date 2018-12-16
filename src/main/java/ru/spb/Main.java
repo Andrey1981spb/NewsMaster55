@@ -1,3 +1,5 @@
+package ru.spb;
+
 import java.sql.SQLException;
 
 public class Main {

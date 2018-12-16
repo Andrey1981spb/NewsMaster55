@@ -1,3 +1,5 @@
+package ru.spb;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 

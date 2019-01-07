@@ -1,21 +1,23 @@
-package ru.spb;
+package ru.spb.push;
 
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import ru.spb.FactoryClass;
+import ru.spb.push.Pushdata;
 
 import java.util.List;
 
 public class UserDAO {
 
-    public UserDAO (){
+    public UserDAO() {
 
     }
 
     FactoryClass factoryClass = new FactoryClass();
 
-    public Pushdata findById(long id) {
-        return factoryClass.getSessionFactory().openSession().get(Pushdata.class, id);
-    }
+   // public Pushdata findById(long id) {
+     //   return factoryClass.getSessionFactory().openSession().get(Pushdata.class, id);
+  //  }
 
     public void save(Pushdata pushdata) {
         Session session = factoryClass.getSessionFactory().openSession();
@@ -42,6 +44,7 @@ public class UserDAO {
         session.close();
     }
 
+
     public List<Pushdata> getAll() {
         Session session = factoryClass.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
@@ -50,11 +53,4 @@ public class UserDAO {
         session.close();
         return pushdataList;
     }
-
-    public List<Pushdata> findAll() {
-        List<Pushdata> users = (List<Pushdata>)
-                factoryClass.getSessionFactory().openSession().createQuery("select '*' from Pushdata" ).list();
-        return users;
-    }
-
 }

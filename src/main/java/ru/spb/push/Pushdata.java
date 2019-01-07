@@ -1,31 +1,29 @@
-package ru.spb;
+package ru.spb.push;
 
 import javax.persistence.*;
 
-
 @Entity
-@Table(name="pushmaster")
+@Table(name = "pushmaster")
 public class Pushdata {
 
     @Id
     @SequenceGenerator(name = "pushmaster_id_seq",
-    sequenceName = "pushmaster_id_seq",
-    allocationSize = 1)
+            sequenceName = "pushmaster_id_seq",
+            allocationSize = 1)
     @GeneratedValue (strategy = GenerationType.SEQUENCE,
-    generator = "pushmaster_id_seq")
-    @Column(name="id", unique = true)
+            generator = "pushmaster_id_seq")
+    @Column(name = "id", unique = true)
     public int id;
 
     private String title;
     private String content;
 
-    public Pushdata (){
-
+    public Pushdata() {
     }
 
-    public Pushdata (String title, String content){
-        this.title=title;
-        this.content=content;
+    public Pushdata(String title, String content) {
+        this.title = title;
+        this.content = content;
     }
 
     @Column(name = "title")
@@ -45,7 +43,6 @@ public class Pushdata {
     public void setContent(String content) {
         this.content = content;
     }
-
 
     public int getId() {
         return id;

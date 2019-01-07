@@ -6,7 +6,7 @@
     <session-factory>
 
         <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
-        <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQL94Dialect</property>
+        <property name="hibernate.dialect"> org.hibernate.dialect.PostgreSQL9Dialect</property>
 
         <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/</property>
 
@@ -20,7 +20,10 @@
         <property name="hibernate.connection.autocommit">true</property>
 
         <property name="show_sql">true</property>
-
+        
+        <mapping class="ru.spb.push.Pushdata"/>
+        <mapping class="ru.spb.login.Logindata"/>
 
     </session-factory>
+
 </hibernate-configuration>

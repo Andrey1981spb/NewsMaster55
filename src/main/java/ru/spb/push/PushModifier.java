@@ -30,9 +30,11 @@ public class PushModifier {
         userDAO.update(pushdata);
     }
 
-    public List<Pushdata> findAllPushdata() {
-        return userDAO.getAll();
+   // public List<Pushdata> findAllPushdata() {
 
-    }
+          //  return userDAO.getAll();
+
+
+ //   }
 
 }

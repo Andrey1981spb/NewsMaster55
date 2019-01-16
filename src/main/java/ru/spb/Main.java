@@ -1,19 +1,19 @@
 package ru.spb;
 
-import ru.spb.login.QueryDBLoginClass;
+
+import ru.spb.login.QueryDBLoginClass2;
 
 import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) throws SQLException {
-       // new Guiconsole();
-      //  QueryDBLoginClass dbConnTestClass = new QueryDBLoginClass();
-     //   String result = dbConnTestClass.DBdataQuery();
 
+        Boolean result;
 
-
-
+     //   QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2("sziuftabkt", "sziuftabkta");
+     //   result = queryDBLoginClass.CheckLogin();
+      //  System.out.println(result);
     }
 
 }

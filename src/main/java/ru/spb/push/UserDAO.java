@@ -15,42 +15,38 @@ public class UserDAO {
 
     FactoryClass factoryClass = new FactoryClass();
 
-   // public Pushdata findById(long id) {
-     //   return factoryClass.getSessionFactory().openSession().get(Pushdata.class, id);
-  //  }
-
-    public void save(Pushdata pushdata) {
+    public void save(Object object) {
         Session session = factoryClass.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.save(pushdata);
+        session.save(object);
         session.flush();
         tx1.commit();
         session.close();
     }
 
-    public void update(Pushdata pushdata) {
+    public void update(Object object) {
         Session session = factoryClass.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.update(pushdata);
+        session.update(object);
         tx1.commit();
         session.close();
     }
 
-    public void delete(Pushdata pushdata) {
+    public void delete(Object object) {
         Session session = factoryClass.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        session.delete(pushdata);
+        session.delete(object);
         tx1.commit();
         session.close();
     }
 
-
-    public List<Pushdata> getAll() {
+    public List<Newsdata> getAll () {
         Session session = factoryClass.getSessionFactory().openSession();
         Transaction tx1 = session.beginTransaction();
-        List pushdataList = session.createQuery("from Pushdata").list();
+        List dataList = session.createQuery("from Newsdata").list();
         tx1.commit();
         session.close();
-        return pushdataList;
+        return dataList;
     }
+
 }

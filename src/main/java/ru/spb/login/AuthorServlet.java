@@ -15,14 +15,14 @@ import java.util.List;
 
 @WebServlet("/loginPage")
 public class AuthorServlet extends HttpServlet {
-
-    String etalonlogin;
-    String etalonpassword;
-    String returnPage;
     Allert allert = new Allert();
-    QueryDBLoginClass queryDBLoginClass = new QueryDBLoginClass();
+    
+    int check;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        request.setCharacterEncoding("UTF8");
+        response.setContentType("text/html; charset=UTF-8");
 
         if (request.getParameter("postInApp") != null) {
 
@@ -31,23 +31,22 @@ public class AuthorServlet extends HttpServlet {
             String login = request.getParameter("login");
             String password = request.getParameter("password");
 
-            etalonlogin = queryDBLoginClass.GetLogin();
-            etalonpassword = queryDBLoginClass.GetPassword();
 
+            QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password);
+
+            check = queryDBLoginClass.CheckLogin();
             //compare of data, which being extracted and inputed
 
-            if (etalonlogin.equals(login) & etalonpassword.equals(password)) {
-                returnPage = "/newsPage";
-                request.getRequestDispatcher(returnPage).forward(request, response);
+            if (check == 1) {
+                response.sendRedirect("/newsPage");
 
-            } else {
-               // returnPage = "/loginPage.jsp";
-               // doGet(request, response);
+            } else if (check == 0) {
+                response.sendRedirect("/loginPage.jsp");
             }
+
         }
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-    }
 }
+
+

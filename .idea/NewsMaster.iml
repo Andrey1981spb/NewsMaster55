@@ -4,7 +4,7 @@
     <facet type="hibernate" name="Hibernate">
       <configuration>
         <datasource-map>
-          <unit-entry name="hibernate.cfg.xml" value="b31d4889-cf30-4e06-b35b-6aab29d8cfbe" />
+          <unit-entry name="hibernate.cfg.xml" value="3f88f8f1-89c0-4ebc-bae2-5dd343bb5626" />
           <unit-entry name="src:main:resources:hibernate.cfg.xml" />
           <unit-entry name="target:NewsMaster-1.0.1:WEB-INF:classes:hibernate.cfg.xml" value="629e92de-8542-4fdc-a34e-7b2d0e1ee9c1" />
           <unit-entry name="target:classes:hibernate.cfg.xml" />
@@ -18,11 +18,11 @@
     <facet type="jpa" name="JPA">
       <configuration>
         <setting name="validation-enabled" value="true" />
-        <setting name="provider-name" value="" />
         <datasource-mapping>
           <factory-entry name="Entities" value="9740d458-2022-43ea-b4a3-ff19928a0688" />
-          <factory-entry name="pushmaster" value="3f88f8f1-89c0-4ebc-bae2-5dd343bb5626" />
+          <factory-entry name="pushmaster" value="9740d458-2022-43ea-b4a3-ff19928a0688" />
         </datasource-mapping>
+        <naming-strategy-map />
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/target/classes/META-INF/persistence.xml" />
       </configuration>
     </facet>

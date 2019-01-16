@@ -23,6 +23,7 @@
         
         <mapping class="ru.spb.push.Pushdata"/>
         <mapping class="ru.spb.login.Logindata"/>
+        <mapping class="ru.spb.push.Newsdata"/>
 
     </session-factory>
 

@@ -12,8 +12,8 @@ import java.util.List;
 @WebServlet("/newsPage")
 public class PushNewsServlet extends HttpServlet {
     private static final long serialVersionUID = 6978504478649856135L;
-//    private final PushModifier pushModifier = new PushModifier();
-//    private final NewsModifier newsModifier = new NewsModifier();
+    private final PushModifier pushModifier = new PushModifier();
+    private final NewsModifier newsModifier = new NewsModifier();
     private final List<Pushdata> mockPushdataList = new ArrayList<Pushdata>();
     private final List<Newsdata> mockNewsdataList = new ArrayList<Newsdata>();
 
@@ -21,7 +21,7 @@ public class PushNewsServlet extends HttpServlet {
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
         //Запрос из базы
 //        request.setAttribute("listofpush", pushModifier.findAllPushdata());
-//        request.setAttribute("listofnews", newsModifier.findAllNewsdata());
+        request.setAttribute("listofnews", newsModifier.findAllNewsdata());
 
         //Передача из заглушки
         request.setAttribute("listofpush", mockPushdataList);
@@ -51,7 +51,7 @@ public class PushNewsServlet extends HttpServlet {
 
             pushdata.setTitle(request.getParameter("title"));
             pushdata.setContent(request.getParameter("content"));
-//            pushModifier.savePushdata(pushdata);
+            pushModifier.savePushdata(pushdata);
             mockPushdataList.add(pushdata);
             doGet(request, response);
             //   }
@@ -62,7 +62,7 @@ public class PushNewsServlet extends HttpServlet {
 
             newsdata.setTitle_news(request.getParameter("title_news"));
             newsdata.setContent_news(request.getParameter("content_news"));
-//            newsModifier.saveNewsdata(newsdata);
+            newsModifier.saveNewsdata(newsdata);
             mockNewsdataList.add(newsdata);
             doGet(request, response);
             // }

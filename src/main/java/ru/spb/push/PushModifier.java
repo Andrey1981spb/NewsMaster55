@@ -1,5 +1,7 @@
 package ru.spb.push;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import ru.spb.FactoryClass;
 
 import java.util.List;
@@ -30,11 +32,17 @@ public class PushModifier {
         userDAO.update(pushdata);
     }
 
-   // public List<Pushdata> findAllPushdata() {
+    public List<Pushdata> findAllPushdata() {
+
+        Session session = factoryClass.getSessionFactory().openSession();
+        Transaction tx1 = session.beginTransaction();
+        List dataList = session.createQuery("from Pushdata").list();
+        tx1.commit();
+        session.close();
+        return dataList;
 
           //  return userDAO.getAll();
 
-
- //   }
+    }
 
 }

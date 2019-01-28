@@ -15,6 +15,7 @@
             width: 40%;
             float: left;
             height: 100%;
+            z-index: 2;
         }
 
         .newsblock {
@@ -24,9 +25,10 @@
             float: right;
             top: 0%;
             height: 100%;
+            z-index: 3;
         }
 
-        .modal {
+        .modalpush {
             position: absolute;
             background-color: #806b71;
             font-size: 30%;
@@ -41,9 +43,39 @@
             border: black;
             border-width: 5px;
             display: none;
+            z-index: 1000;
         }
 
-        .pushstack{
+        .modalnews {
+            position: absolute;
+            background-color: #807e6a;
+            font-size: 30%;
+            position: fixed;
+            height: 400px;
+            width: 600px;
+            top: 20%;
+            bottom: 30%;
+            left: 30%;
+            right: 30%;
+            border-style: solid;
+            border: black;
+            border-width: 5px;
+            display: none;
+            z-index: 50;
+        }
+
+        .pushstack1{
+              position: absolute;
+              background-color: #800921;
+              top: 20%;
+              bottom: 30%;
+              left: 10%;
+              right: 10%;
+              border-style: solid;
+              border: black;
+              border-width: 5px;
+          }
+        .pushstack2{
             position: absolute;
             background-color: #800921;
             top: 20%;
@@ -123,9 +155,21 @@
     </form>
 </div>
 
+    <ul>
+        <jsp:useBean id="listofpush" scope="request" type="java.util.List<ru.spb.push.Newsdata>"/>
+        <c:forEach items="${listofpush}" var="pushdata">
+            <div class="pushstack1">
+                <form>
+                    <input type="text" name="news_title" value="<c:out value="${pushdata.title}"/>">
+                    <input type="textarea" name="news_content" cols="45" maxlength="100" value="<c:out value="${pushdata.content}"/>">
+                    <br/>
+                </form>
+            </div>
+        </c:forEach>
+    </ul>
 
 
-<div class="modal" id="modalDialog">
+<div class="modalpush" id="modalDialog">
     <form method="post" action="newsPage">
 
         <input type= "text" name="title">
@@ -155,17 +199,18 @@
     <ul>
         <jsp:useBean id="listofnews" scope="request" type="java.util.List<ru.spb.push.Newsdata>"/>
         <c:forEach items="${listofnews}" var="newsdata">
-            <div class="pushstack">
+            <div class="pushstack2">
                 <form>
                     <input type="text" name="news_title" value="<c:out value="${newsdata.title_news}"/>">
                     <input type="textarea" name="news_content" cols="45" maxlength="100" value="<c:out value="${newsdata.content_news}"/>">
+                    <img src = "${pageContext.request.contextPath}/${newsdata.urlimage}">
                     <br/>
                 </form>
             </div>
         </c:forEach>
     </ul>
 
-    <div class="modal" id="newsModalDialog">
+    <div class="modalnews" id="newsModalDialog">
         <form method="post" action="newsPage">
 
              <textarea cols="45" maxlength="100" onkeyup="countf2()"
@@ -180,6 +225,15 @@
         <input type="button" value="Закрыть" onclick="modal_close()">
 
     </div>
+
+</div>
+
+<div>
+    <form method="post" action="newsPage">
+        <input type="hidden" name = "forDirection">
+        <input type="submit" value="Для руководителя" name="forDirection">
+
+    </form>
 
 </div>
 

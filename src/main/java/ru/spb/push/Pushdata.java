@@ -17,6 +17,8 @@ public class Pushdata {
 
     private String title;
     private String content;
+    private String urlimage;
+
 
     public Pushdata() {
     }
@@ -43,6 +45,8 @@ public class Pushdata {
     public void setContent(String content) {
         this.content = content;
     }
+
+
 
     public int getId() {
         return id;

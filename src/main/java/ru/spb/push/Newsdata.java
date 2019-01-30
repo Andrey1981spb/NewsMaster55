@@ -17,6 +17,7 @@ public class Newsdata {
 
     private String title_news;
     private String content_news;
+    private String urlimage;
 
     public Newsdata() {
     }
@@ -42,6 +43,15 @@ public class Newsdata {
 
     public void setContent_news(String content_news) {
         this.content_news = content_news;
+    }
+
+    @Column(name = "urlimage")
+    public String getUrlimage() {
+        return urlimage;
+    }
+
+    public void setUrlimage(String urlimage) {
+        this.urlimage = urlimage;
     }
 
     public int getId() {

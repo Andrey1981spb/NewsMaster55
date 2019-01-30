@@ -15,7 +15,6 @@
             width: 40%;
             float: left;
             height: 100%;
-            z-index: 2;
         }
 
         .newsblock {
@@ -25,14 +24,12 @@
             float: right;
             top: 0%;
             height: 100%;
-            z-index: 3;
         }
 
         .modalpush {
             position: absolute;
             background-color: #806b71;
             font-size: 30%;
-            position: fixed;
             height: 400px;
             width: 600px;
             top: 20%;
@@ -43,14 +40,13 @@
             border: black;
             border-width: 5px;
             display: none;
-            z-index: 1000;
+            z-index: 9999;
         }
 
         .modalnews {
             position: absolute;
             background-color: #807e6a;
             font-size: 30%;
-            position: fixed;
             height: 400px;
             width: 600px;
             top: 20%;
@@ -61,7 +57,6 @@
             border: black;
             border-width: 5px;
             display: none;
-            z-index: 50;
         }
 
         .pushstack1{

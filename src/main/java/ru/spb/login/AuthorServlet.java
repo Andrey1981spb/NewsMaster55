@@ -1,8 +1,5 @@
 package ru.spb.login;
 
-import ru.spb.FactoryClass;
-
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,13 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
-import java.util.Iterator;
-import java.util.List;
 
 @WebServlet("/loginPage")
 public class AuthorServlet extends HttpServlet {
     Allert allert = new Allert();
-    
     int check;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -24,29 +18,48 @@ public class AuthorServlet extends HttpServlet {
         request.setCharacterEncoding("UTF8");
         response.setContentType("text/html; charset=UTF-8");
 
-        if (request.getParameter("postInApp") != null) {
-
-            // input of data
+        if (request.getParameter("postInApp1") != null) {
 
             String login = request.getParameter("login");
             String password = request.getParameter("password");
 
+            QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password, "spec");
 
-            QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password);
-
-            check = queryDBLoginClass.CheckLogin();
-            //compare of data, which being extracted and inputed
+            check = queryDBLoginClass.CheckRole();
 
             if (check == 1) {
-                response.sendRedirect("/newsPage");
+
+               // request.getSession().setAttribute("role", "spec");
+               // response.sendRedirect("/newsPage");
+
+                response.sendRedirect("/newsPage?role=spec");
 
             } else if (check == 0) {
                 response.sendRedirect("/loginPage.jsp");
             }
+        }
 
+        else if (request.getParameter("postInApp2") != null) {
+
+            String login = request.getParameter("login");
+            String password = request.getParameter("password");
+
+            QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password, "manager");
+
+            check = queryDBLoginClass.CheckRole();
+
+            if (check == 1) {
+
+              //  request.getSession().setAttribute("role", "manager");
+                response.sendRedirect("/newsPage");
+
+              //  response.sendRedirect("/newsPage?role=manager");
+                
+            } else if (check == 0) {
+                response.sendRedirect("/loginPage.jsp");
+            }
         }
     }
-
 }
 
 

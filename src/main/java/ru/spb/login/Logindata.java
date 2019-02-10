@@ -17,8 +17,18 @@ public class Logindata {
 
     private String login;
     private String password;
+    private String role;
 
     public Logindata() {
+    }
+
+    @Column(name = "role")
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Logindata(String login, String password) {

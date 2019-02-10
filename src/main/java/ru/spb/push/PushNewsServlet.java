@@ -1,6 +1,7 @@
 package ru.spb.push;
 
 import org.apache.commons.lang.ObjectUtils;
+import ru.spb.login.Allert;
 import ru.spb.push.directions.DirModifier;
 import ru.spb.push.directions.Directiondata;
 
@@ -19,6 +20,7 @@ public class PushNewsServlet extends HttpServlet {
     private final NewsModifier newsModifier = new NewsModifier();
     private final DirModifier dirModifier = new DirModifier();
     final Logger log = (Logger) Logger.getLogger(String.valueOf((PushNewsServlet.class)));
+    Allert allert = new Allert();
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
@@ -26,21 +28,40 @@ public class PushNewsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF8");
         response.setContentType("text/html; text/plain; image/jpg; charset=UTF-8");
 
+        if ("manager".equals(request.getParameter("role"))){
 
-      if (request.getParameter("forDirection") != null) {
-           if (!response.isCommitted()){
-           request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
-                getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);}
-        } else if (request.getParameter("modalDirection") != null){
-            if (!response.isCommitted()){
-                request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
-                getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);}
-        }
-        else {
             request.setAttribute("listofpush", pushModifier.findAllPushdata());
             request.setAttribute("listofnews", newsModifier.findAllNewsdata());
+
+
+            request.setAttribute("role", "manager");
+
             getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
         }
+
+        if ("spec".equals(request.getParameter("role"))){
+            request.setAttribute("listofpush", pushModifier.findAllPushdata());
+            request.setAttribute("listofnews", newsModifier.findAllNewsdata());
+
+
+            request.setAttribute("role", "spec");
+
+            getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response); }
+
+
+           if (request.getParameter("forDirection") != null) {
+                if (!response.isCommitted()) {
+                    request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
+                   getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
+                }
+            }
+           if (request.getParameter("modalDirection") != null) {
+              if (!response.isCommitted()) {
+                   request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
+                   getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
+               }
+           }
+
 
     }
 
@@ -71,7 +92,9 @@ public class PushNewsServlet extends HttpServlet {
         }
 
         if (request.getParameter("forDirection") != null) {
+
             doGet(request, response);
+
         }
 
         if (request.getParameter("modalDirection") != null) {

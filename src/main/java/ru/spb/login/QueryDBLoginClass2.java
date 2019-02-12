@@ -13,50 +13,74 @@ public class QueryDBLoginClass2 {
     String etalonpassword;
     String login;
     String password;
+    String role;
     FactoryClass factoryClass = new FactoryClass();
 
     int f;
+    int result;
 
-    public QueryDBLoginClass2(String login, String password) {
+    public QueryDBLoginClass2(String login, String password, String role) {
         this.login = login;
         this.password = password;
+        this.role = role;
+    }
+
+    public String getRole() {
+        return role;
     }
 
     Session session = factoryClass.getSessionFactory().
             openSession();
 
-    //Query login from base //
-    Query queryData = session.createQuery("from Logindata");
+    final public int CheckLogin(List<Logindata> list) {
 
-    List<Logindata> logindataList = queryData.getResultList();
+            int count1 = 0;
 
-    final public int CheckLogin() {
+            for (int i = 0; i < list.size(); i++) {
 
-        int count1 = 0;
+                etalonlogin = list.get(count1).getLogin();
+                etalonpassword = list.get(count1).getPassword();
 
-        for (int i=0; i<logindataList.size(); i++) {
+                // Check the condition //
+                if (etalonlogin.equals(login) && etalonpassword.equals(password)) {
 
-            etalonlogin = logindataList.get(count1).getLogin();
-            etalonpassword = logindataList.get(count1).getPassword();
+                    f = 1;
 
-            // Check the condition //
-            if (etalonlogin.equals(login) && etalonpassword.equals(password)) {
+                } else {
+                    int count2 = count1 + 1;
+                    count1 = count2;
 
-                f = 1;
+                    if (count1 > list.size() - 1) {
 
-            } else {
-                int count2 = count1 + 1;
-                count1 = count2;
-
-                if (count1 > logindataList.size()-1) {
-
-                    f = 0;
+                        f = 0;
+                    }
                 }
             }
-        }
 
         return f;
     }
+
+    final public int CheckRole() {
+
+        String sendrole = this.getRole();
+
+        if (sendrole == "spec") {
+
+            //Query login from base //
+            Query queryData = session.createQuery("from Logindata where role = :nameRole").setParameter("nameRole", "spec");
+            List<Logindata> logindataList = queryData.getResultList();
+
+            result = this.CheckLogin(logindataList);
+        } else if (sendrole == "manager") {
+            Query queryData = session.createQuery("from Logindata where role = :nameRole").setParameter("nameRole", "manager");
+            List<Logindata> logindataList = queryData.getResultList();
+
+            result = this.CheckLogin(logindataList);
+        }
+       return result;
+
+    }
+
 
 }
 

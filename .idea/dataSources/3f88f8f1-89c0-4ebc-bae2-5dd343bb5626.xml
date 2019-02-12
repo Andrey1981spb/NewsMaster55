@@ -120,8 +120,8 @@
       <Comment>standard public schema</Comment>
       <StateNumber>359</StateNumber>
       <Owner>postgres</Owner>
-      <IntrospectionTimestamp>2019-01-27.13:55:09.951</IntrospectionTimestamp>
-      <IntrospectionStateNumber>1167</IntrospectionStateNumber>
+      <IntrospectionTimestamp>2019-01-31.23:13:41.245</IntrospectionTimestamp>
+      <IntrospectionStateNumber>1251</IntrospectionStateNumber>
       <Current>1</Current>
       <Visible>1</Visible>
     </schema>
@@ -231,7 +231,7 @@
     <table id="36" parent="21" name="loginmaster">
       <ObjectId>17272</ObjectId>
       <Owner>andrej</Owner>
-      <StateNumber>1030</StateNumber>
+      <StateNumber>1251</StateNumber>
     </table>
     <table id="37" parent="21" name="newsmaster">
       <ObjectId>17298</ObjectId>
@@ -299,92 +299,99 @@
       <StateNumber>1030</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="48" parent="36" name="loginmaster_pkey">
+    <column id="48" parent="36" name="role">
+      <Position>4</Position>
+      <DataType>text|0s</DataType>
+      <StateNumber>1251</StateNumber>
+      <TypeId>25</TypeId>
+    </column>
+    <index id="49" parent="36" name="loginmaster_pkey">
       <ObjectId>17278</ObjectId>
       <ColNames>login_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="49" parent="36" name="loginmaster_pkey">
+    <key id="50" parent="36" name="loginmaster_pkey">
       <ObjectId>17279</ObjectId>
+      <StateNumber>1019</StateNumber>
       <ColNames>login_id</ColNames>
       <UnderlyingIndexName>loginmaster_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="50" parent="37" name="news_id">
+    <column id="51" parent="37" name="news_id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>1037</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="51" parent="37" name="title_news">
+    <column id="52" parent="37" name="title_news">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>1037</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="52" parent="37" name="content_news">
+    <column id="53" parent="37" name="content_news">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>1037</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="53" parent="37" name="urlimage">
+    <column id="54" parent="37" name="urlimage">
       <Position>8</Position>
       <DataType>varchar(256)|0s</DataType>
       <StateNumber>1150</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="54" parent="37" name="newsmaster_pkey">
+    <index id="55" parent="37" name="newsmaster_pkey">
       <ObjectId>17304</ObjectId>
       <StateNumber>1037</StateNumber>
       <ColNames>news_id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="55" parent="37" name="newsmaster_pkey">
+    <key id="56" parent="37" name="newsmaster_pkey">
       <ObjectId>17305</ObjectId>
       <StateNumber>1037</StateNumber>
       <ColNames>news_id</ColNames>
       <UnderlyingIndexName>newsmaster_pkey</UnderlyingIndexName>
       <Primary>1</Primary>
     </key>
-    <column id="56" parent="38" name="field2">
+    <column id="57" parent="38" name="field2">
       <Position>2</Position>
       <DataType>text|0s</DataType>
       <StateNumber>1101</StateNumber>
       <TypeId>25</TypeId>
     </column>
-    <column id="57" parent="39" name="id">
+    <column id="58" parent="39" name="id">
       <Position>1</Position>
       <DataType>integer|0s</DataType>
       <NotNull>1</NotNull>
       <StateNumber>985</StateNumber>
       <TypeId>23</TypeId>
     </column>
-    <column id="58" parent="39" name="content">
+    <column id="59" parent="39" name="content">
       <Position>2</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>985</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="59" parent="39" name="title">
+    <column id="60" parent="39" name="title">
       <Position>3</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>985</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <column id="60" parent="39" name="urlimage">
+    <column id="61" parent="39" name="urlimage">
       <Position>5</Position>
       <DataType>varchar(255)|0s</DataType>
       <StateNumber>1151</StateNumber>
       <TypeId>1043</TypeId>
     </column>
-    <index id="61" parent="39" name="pushmaster_pkey">
+    <index id="62" parent="39" name="pushmaster_pkey">
       <ObjectId>17269</ObjectId>
       <ColNames>id</ColNames>
       <Unique>1</Unique>
     </index>
-    <key id="62" parent="39" name="pushmaster_pkey">
+    <key id="63" parent="39" name="pushmaster_pkey">
       <ObjectId>17270</ObjectId>
       <StateNumber>985</StateNumber>
       <ColNames>id</ColNames>

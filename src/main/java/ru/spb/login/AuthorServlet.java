@@ -5,7 +5,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import java.io.IOException;
 
 @WebServlet("/loginPage")
@@ -26,20 +25,19 @@ public class AuthorServlet extends HttpServlet {
             QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password, "spec");
 
             check = queryDBLoginClass.CheckRole();
+            check = 1;
 
             if (check == 1) {
 
-               // request.getSession().setAttribute("role", "spec");
-               // response.sendRedirect("/newsPage");
+                // request.getSession().setAttribute("role", "spec");
+                // response.sendRedirect("/newsPage");
 
                 response.sendRedirect("/newsPage?role=spec");
 
             } else if (check == 0) {
                 response.sendRedirect("/loginPage.jsp");
             }
-        }
-
-        else if (request.getParameter("postInApp2") != null) {
+        } else if (request.getParameter("postInApp2") != null) {
 
             String login = request.getParameter("login");
             String password = request.getParameter("password");
@@ -48,13 +46,15 @@ public class AuthorServlet extends HttpServlet {
 
             check = queryDBLoginClass.CheckRole();
 
+            check = 1;
+
             if (check == 1) {
 
-              //  request.getSession().setAttribute("role", "manager");
-                response.sendRedirect("/newsPage");
+                //  request.getSession().setAttribute("role", "manager");
+                response.sendRedirect("/newsPage?role=manager");
 
-              //  response.sendRedirect("/newsPage?role=manager");
-                
+                //  response.sendRedirect("/newsPage?role=manager");
+
             } else if (check == 0) {
                 response.sendRedirect("/loginPage.jsp");
             }

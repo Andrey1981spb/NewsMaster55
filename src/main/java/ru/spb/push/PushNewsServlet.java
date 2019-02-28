@@ -45,7 +45,7 @@ public class PushNewsServlet extends HttpServlet {
             getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
         }
 
-        if ("manager2".equals(request.getAttribute("role"))) {
+        if ("manager_attribute".equals(request.getAttribute("role"))) {
 
             request.setAttribute("listofpush", pushModifier.findAllPushdata());
             request.setAttribute("listofnews", newsModifier.findAllNewsdata());
@@ -95,7 +95,6 @@ public class PushNewsServlet extends HttpServlet {
             newsModifier.saveNewsdata(newsdata);
 
 
-                request.getParameter("image_on_server");
                 if (request.getParameter("image_on_server") != null) {
                     log.info("get a picture successfully");
 
@@ -107,6 +106,7 @@ public class PushNewsServlet extends HttpServlet {
                         if (servletInputStream != null) {
                             log.info("stream to servlet without problem");
                             imageService.SaveFile(servletInputStream);
+                            doGet(request, response);
                         } else {
                             log.info("stream to servlet is null");
 
@@ -120,10 +120,8 @@ public class PushNewsServlet extends HttpServlet {
                 }
 
 
-
-
             if ("manager".equals(request.getParameter("role"))) {
-                request.setAttribute("role", "manager2");
+                request.setAttribute("role", "manager_attribute");
                 doGet(request, response);
             }
         }

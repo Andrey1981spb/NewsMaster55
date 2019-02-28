@@ -64,11 +64,10 @@
 
 <body>
 
-
         <div id="recieverImg">
             <div>Перетащите изображение сюда</div>
         </div>
-        <input id="imgInput" type="file" onchange="processFiles(this.files)">
+        <input id="imgInput" name ="image_on_server" type="file" onchange="processFiles(this.files)">
 
 </div>
 

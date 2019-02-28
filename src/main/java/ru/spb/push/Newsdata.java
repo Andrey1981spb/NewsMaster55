@@ -46,9 +46,9 @@ public class Newsdata {
     }
 
     @Column(name = "urlimage")
-    public String getUrlimage() {
-        return urlimage;
-    }
+   public String getUrlimage() {
+       return urlimage;
+   }
 
     public void setUrlimage(String urlimage) {
         this.urlimage = urlimage;

@@ -1,11 +1,11 @@
 package ru.spb.push;
 
-import org.apache.commons.lang.ObjectUtils;
-import ru.spb.login.Allert;
+import ru.spb.ImageService;
 import ru.spb.push.directions.DirModifier;
 import ru.spb.push.directions.Directiondata;
 
 import javax.servlet.ServletException;
+import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +19,7 @@ public class PushNewsServlet extends HttpServlet {
     private final PushModifier pushModifier = new PushModifier();
     private final NewsModifier newsModifier = new NewsModifier();
     private final DirModifier dirModifier = new DirModifier();
-    final Logger log = (Logger) Logger.getLogger(String.valueOf((PushNewsServlet.class)));
-    Allert allert = new Allert();
+    private static Logger log = Logger.getLogger(PushNewsServlet.class.getName());
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
@@ -28,41 +27,47 @@ public class PushNewsServlet extends HttpServlet {
         request.setCharacterEncoding("UTF8");
         response.setContentType("text/html; text/plain; image/jpg; charset=UTF-8");
 
-        if ("manager".equals(request.getParameter("role"))){
 
+        if ("manager".equals(request.getParameter("role"))) {
             request.setAttribute("listofpush", pushModifier.findAllPushdata());
             request.setAttribute("listofnews", newsModifier.findAllNewsdata());
-
-
             request.setAttribute("role", "manager");
+
+            getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
+
+        }
+
+        if ("spec".equals(request.getParameter("role"))) {
+            request.setAttribute("listofpush", pushModifier.findAllPushdata());
+            request.setAttribute("listofnews", newsModifier.findAllNewsdata());
+            request.setAttribute("role", "spec");
 
             getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
         }
 
-        if ("spec".equals(request.getParameter("role"))){
+        if ("manager2".equals(request.getAttribute("role"))) {
+
             request.setAttribute("listofpush", pushModifier.findAllPushdata());
             request.setAttribute("listofnews", newsModifier.findAllNewsdata());
+            request.setAttribute("role", "manager");
+
+            getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
+
+        }
 
 
-            request.setAttribute("role", "spec");
-
-            getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response); }
-
-
-           if (request.getParameter("forDirection") != null) {
-                if (!response.isCommitted()) {
-                    request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
-                   getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
-                }
+        if (request.getParameter("forDirection") != null) {
+            if (!response.isCommitted()) {
+                request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
+                getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
             }
-           if (request.getParameter("modalDirection") != null) {
-              if (!response.isCommitted()) {
-                   request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
-                   getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
-               }
-           }
-
-
+        }
+        if (request.getParameter("modalDirection") != null) {
+            if (!response.isCommitted()) {
+                request.setAttribute("listofdirs", dirModifier.findAllDirectiondata());
+                getServletContext().getRequestDispatcher("/directionPage.jsp").forward(request, response);
+            }
+        }
     }
 
     @Override
@@ -78,17 +83,49 @@ public class PushNewsServlet extends HttpServlet {
             pushdata.setTitle(request.getParameter("title"));
             pushdata.setContent(request.getParameter("content"));
             pushModifier.savePushdata(pushdata);
-            log.info("WELL DONE!!!!");
-            doGet(request, response);
 
+            doGet(request, response);
         }
+
         if (request.getParameter("modalForm2") != null) {
 
             Newsdata newsdata = new Newsdata();
             newsdata.setTitle_news(request.getParameter("title_news"));
             newsdata.setContent_news(request.getParameter("content_news"));
             newsModifier.saveNewsdata(newsdata);
-            doGet(request, response);
+
+
+                request.getParameter("image_on_server");
+                if (request.getParameter("image_on_server") != null) {
+                    log.info("get a picture successfully");
+
+                    ServletInputStream servletInputStream = request.getInputStream();
+                    ImageService imageService = new ImageService();
+
+                    try {
+
+                        if (servletInputStream != null) {
+                            log.info("stream to servlet without problem");
+                            imageService.SaveFile(servletInputStream);
+                        } else {
+                            log.info("stream to servlet is null");
+
+                        }
+                    } catch (Exception e) {
+                        System.out.println("Problem inputing stream to servlet");
+                        e.printStackTrace();
+                    }
+                } else {
+                    log.info("problem with getting a picture ");
+                }
+
+
+
+
+            if ("manager".equals(request.getParameter("role"))) {
+                request.setAttribute("role", "manager2");
+                doGet(request, response);
+            }
         }
 
         if (request.getParameter("forDirection") != null) {
@@ -105,6 +142,7 @@ public class PushNewsServlet extends HttpServlet {
             doGet(request, response);
         }
     }
+
 }
 
 

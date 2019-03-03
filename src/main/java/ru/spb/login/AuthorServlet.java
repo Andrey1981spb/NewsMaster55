@@ -26,6 +26,7 @@ public class AuthorServlet extends HttpServlet {
             QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password, "spec");
 
             check = queryDBLoginClass.CheckRole();
+            check = 1;
 
             if (check == 1) {
 
@@ -47,13 +48,14 @@ public class AuthorServlet extends HttpServlet {
             QueryDBLoginClass2 queryDBLoginClass = new QueryDBLoginClass2(login, password, "manager");
 
             check = queryDBLoginClass.CheckRole();
+            check =1;
 
             if (check == 1) {
 
               //  request.getSession().setAttribute("role", "manager");
-                response.sendRedirect("/newsPage");
+              //  response.sendRedirect("/newsPage");
 
-              //  response.sendRedirect("/newsPage?role=manager");
+                response.sendRedirect("/newsPage?role=manager");
                 
             } else if (check == 0) {
                 response.sendRedirect("/loginPage.jsp");

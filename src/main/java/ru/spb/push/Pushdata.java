@@ -9,16 +9,14 @@ public class Pushdata {
     @Id
     @SequenceGenerator(name = "pushmaster_id_seq",
             sequenceName = "pushmaster_id_seq",
-            allocationSize = 1)
+    allocationSize = 1)
     @GeneratedValue (strategy = GenerationType.SEQUENCE,
-            generator = "pushmaster_id_seq")
+           generator = "pushmaster_id_seq")
     @Column(name = "id", unique = true)
     public int id;
 
     private String title;
     private String content;
-    private String urlimage;
-
 
     public Pushdata() {
     }

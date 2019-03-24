@@ -22,6 +22,16 @@
 
     <script type="text/javascript" charset="UTF-8">
 
+        $("input#test")
+
+
+
+
+
+
+
+
+
         var recieverImg;
 
         window.onload = function(){
@@ -68,6 +78,16 @@
             <div>Перетащите изображение сюда</div>
         </div>
         <input id="imgInput" name ="image_on_server" type="file" onchange="processFiles(this.files)">
+
+
+        <div id="test">
+
+        </div>
+
+        <input type="button" onclick="inserttext()">
+
+
+
 
 </div>
 

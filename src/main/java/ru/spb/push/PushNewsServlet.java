@@ -10,7 +10,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Logger;
 
 @WebServlet("/newsPage")
@@ -43,16 +45,6 @@ public class PushNewsServlet extends HttpServlet {
             request.setAttribute("role", "spec");
 
             getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
-        }
-
-        if ("manager_attribute".equals(request.getAttribute("role"))) {
-
-            request.setAttribute("listofpush", pushModifier.findAllPushdata());
-            request.setAttribute("listofnews", newsModifier.findAllNewsdata());
-            request.setAttribute("role", "manager");
-
-            getServletContext().getRequestDispatcher("/newsPage.jsp").forward(request, response);
-
         }
 
 
@@ -95,36 +87,30 @@ public class PushNewsServlet extends HttpServlet {
             newsModifier.saveNewsdata(newsdata);
 
 
-                if (request.getParameter("image_on_server") != null) {
-                    log.info("get a picture successfully");
+            doGet(request, response);
+        }
 
-                    ServletInputStream servletInputStream = request.getInputStream();
-                    ImageService imageService = new ImageService();
+          if ((request.getParameter("image_on_server") != null) ){
 
-                    try {
 
-                        if (servletInputStream != null) {
-                            log.info("stream to servlet without problem");
-                            imageService.SaveFile(servletInputStream);
-                            doGet(request, response);
-                        } else {
-                            log.info("stream to servlet is null");
+           ServletInputStream servletInputStream = request.getInputStream();
+          ImageService imageService = new ImageService();
 
-                        }
-                    } catch (Exception e) {
-                        System.out.println("Problem inputing stream to servlet");
-                        e.printStackTrace();
-                    }
+
+                if (servletInputStream != null) {
+                    log.info("stream to servlet without problem");
+                    imageService.SaveFile(servletInputStream);
+
+                    doGet(request, response);
                 } else {
-                    log.info("problem with getting a picture ");
+                    log.info("stream to servlet is null");
+
                 }
 
 
-            if ("manager".equals(request.getParameter("role"))) {
-                request.setAttribute("role", "manager_attribute");
-                doGet(request, response);
-            }
-        }
+           } else {
+              log.info("problem with getting a picture ");
+          }
 
         if (request.getParameter("forDirection") != null) {
 

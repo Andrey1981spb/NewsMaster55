@@ -1,0 +1,15 @@
+ Суть в следующем:
+Требуется сохранить картинку с веб-страницы на сервер.
+https://github.com/Andrey1981spb/NewsMaster55/tree/master/src/main
+В jsp newsPage при нажатии на кнопку "Сохранить изображение" изображение из "recieverImg" изображение должно "улетать" на сервлет. Сервлет "/newsPage" ловит его через параметр "image_on_server" и отправляет с "ServletInputStream" в класс "ImageService". Там изображение сериализуется, создается новый пустой файл и в этот файл записывается поток.
+В итоге файл новый файл в диретории "newimage" успешно создается (благодаря Вашим подсказкам в прошлый раз).
+Но он остается пустым!
+В логе:
+1. Для сервлета: stream to servlet without problem
+2. Для ImageService:
+- Buffer is not null
+- Temporary is not null
+- request is not null
+- fileOutputStream is not null
+
+То есть изображение поступает, последующий поток не пустой. Но почему-то в создаваемый файл этот поток не входит...

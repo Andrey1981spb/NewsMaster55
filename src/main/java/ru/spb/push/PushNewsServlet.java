@@ -10,9 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.logging.Logger;
 
 @WebServlet("/newsPage")
@@ -90,27 +88,27 @@ public class PushNewsServlet extends HttpServlet {
             doGet(request, response);
         }
 
-          if ((request.getParameter("image_on_server") != null) ){
+        if ((request.getParameter("image_on_server") != null)) {
 
 
-           ServletInputStream servletInputStream = request.getInputStream();
-          ImageService imageService = new ImageService();
+            ServletInputStream servletInputStream = request.getInputStream();
+            ImageService imageService = new ImageService();
 
 
-                if (servletInputStream != null) {
-                    log.info("stream to servlet without problem");
-                    imageService.SaveFile(servletInputStream);
+            if (servletInputStream != null) {
+                log.info("stream to servlet without problem");
+                imageService.SaveFile(servletInputStream);
 
-                    doGet(request, response);
-                } else {
-                    log.info("stream to servlet is null");
+                doGet(request, response);
+            } else {
+                log.info("stream to servlet is null");
 
-                }
+            }
 
 
-           } else {
-              log.info("problem with getting a picture ");
-          }
+        } else {
+            log.info("problem with getting a picture ");
+        }
 
         if (request.getParameter("forDirection") != null) {
 

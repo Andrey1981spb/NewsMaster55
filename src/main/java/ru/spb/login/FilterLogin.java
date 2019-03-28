@@ -29,15 +29,6 @@ public class FilterLogin implements Filter {
             httpServletResponse.sendRedirect( "/loginPage.jsp");
         }
 
-        if ( (uri.endsWith("manager"))){
-            ((HttpServletResponse) resp).sendRedirect("/newsPage?role=manager");
-            log.info("CATCH_MANAGER");
-
-          //  httpServletResponse.sendRedirect("/newsPage?role=manager");
-           // req.setAttribute("role", "manager");
-          //  req.getRequestDispatcher("newsPage").forward(req, resp);
-           // chain.doFilter(req,resp);
-        }
 
         else if ((session == null) && (uri.endsWith("spec"))){
             httpServletResponse.sendRedirect("/newsPage?role=spec");

@@ -170,19 +170,19 @@
 
         var recieverImg;
 
-        window.onload = function(){
+        window.onload = function () {
             recieverImg = document.getElementById("recieverImg");
             recieverImg.ondragenter = ignoreDrag;
             recieverImg.ondragover = ignoreDrag;
             recieverImg.ondrop = drop;
         }
 
-        function ignoreDrag(e){
+        function ignoreDrag(e) {
             e.stopPropagation();
             e.preventDefault();
         }
 
-        function drop(e){
+        function drop(e) {
             e.stopPropagation();
             e.preventDefault();
 
@@ -233,7 +233,7 @@
     </div>
 
     <div class="modalpush" id="modalDialog">
-        <form method="post" action="newsPage">
+        <form method="post" action="newsPage?role=manager">
 
             <input type="text" name="title">
 
@@ -278,7 +278,7 @@
     </div>
 
     <div class="modalnews" id="newsModalDialog">
-        <form method="post" action="newsPage">
+        <form method="post" action="newsPage?role=manager">
 
              <textarea cols="45" maxlength="100" onkeyup="countf2()"
                        name="title_news" value="title_news"></textarea>
@@ -286,13 +286,17 @@
             <textarea cols="45" maxlength="100" onkeyup="countf2()" id="news_text"
                       name="content_news" value="content_news"></textarea>
             <p style="font-size: 20px" id="news_count"></p>
-
-            <div id="recieverImg">
-                <div>Перетащите изображение сюда</div>
-            </div>
-            <input id="imgInput" name ="image_on_server" type="file" onchange="processFiles(this.files)">
-
             <input type="submit" value="Сохранить" name="modalForm2">
+
+
+            <form method="post" action="newsPage?role=manager">
+                <div id="recieverImg">
+                    <div>Перетащите изображение сюда</div>
+                </div>
+                <input id="imgInput" name="image_on_server" type="file" onchange="processFiles(this.files)">
+                <input type="submit" value="Сохранить изображение" name="modalFormImage">
+            </form>
+
 
         </form>
         <input type="button" value="Закрыть" onclick="modal_close()">

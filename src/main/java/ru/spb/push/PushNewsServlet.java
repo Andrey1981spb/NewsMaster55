@@ -1,16 +1,20 @@
 package ru.spb.push;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import ru.spb.ImageService;
 import ru.spb.push.directions.DirModifier;
 import ru.spb.push.directions.Directiondata;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.logging.Logger;
 
 @WebServlet("/newsPage")
@@ -88,26 +92,23 @@ public class PushNewsServlet extends HttpServlet {
             doGet(request, response);
         }
 
-        if ((request.getParameter("image_on_server") != null)) {
+        if (ServletFileUpload.isMultipartContent(request)) {
+            try {
+                List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
 
+                if (!fileItems.isEmpty()) {
+                    log.info("picture to servlet ok");
+                    ImageService imageService = new ImageService();
+                    imageService.SaveFile(fileItems.get(0));
 
-            ServletInputStream servletInputStream = request.getInputStream();
-            ImageService imageService = new ImageService();
-
-
-            if (servletInputStream != null) {
-                log.info("stream to servlet without problem");
-                imageService.SaveFile(servletInputStream);
-
-                doGet(request, response);
-            } else {
-                log.info("stream to servlet is null");
-
+                    doGet(request, response);
+                } else {
+                    log.info("problem with getting a picture ");
+                }
+            } catch (FileUploadException e) {
+                log.info("problem with getting a picture ");
+                e.printStackTrace();
             }
-
-
-        } else {
-            log.info("problem with getting a picture ");
         }
 
         if (request.getParameter("forDirection") != null) {

@@ -215,19 +215,19 @@
 
     <div>
         <form>
-            <input type="button" id="button_modal" value="Добавить" onclick="modal_open()"/>
+            <input type="button" id="button_modal" value="Добавить" onclick="modal_open()" />
         </form>
     </div>
 
     <div class="pushstack1">
-        <jsp:useBean id="listofpush" scope="request" type="java.util.List<ru.spb.push.Pushdata>"/>
+        <jsp:useBean id="listofpush" scope="request" type="java.util.List<ru.spb.push.Pushdata>" />
         <ul>
             <c:forEach items="${listofpush}" var="pushdata">
                 <input type="text" name="news_title" value="<c:out value="${pushdata.title}"/>">
-                <br/>
+                <br />
                 <input type="textarea" name="news_content" cols="45" maxlength="100"
                        value="<c:out value="${pushdata.content}"/>">
-                <br/>
+                <br />
             </c:forEach>
         </ul>
     </div>
@@ -253,24 +253,24 @@
 
     <div>
         <form>
-            <input type="button" id="news_button_modal" value="Добавить новость" onclick="modal_news_open()"/>
+            <input type="button" id="news_button_modal" value="Добавить новость" onclick="modal_news_open()" />
         </form>
     </div>
 
 
     <div class="pushstack2">
-        <jsp:useBean id="listofnews" scope="request" type="java.util.List<ru.spb.push.Newsdata>"/>
+        <jsp:useBean id="listofnews" scope="request" type="java.util.List<ru.spb.push.Newsdata>" />
         <ul>
             <c:forEach items="${listofnews}" var="newsdata">
 
 
                 <input type="text" name="news_title" value="<c:out value="${newsdata.title_news}"/>">
-                <br/>
+                <br />
                 <input type="textarea" name="news_content" cols="45" maxlength="100"
                        value="<c:out value="${newsdata.content_news}"/>">
-                <br/>
+                <br />
                 <img src="${pageContext.request.contextPath}/${newsdata.urlimage}">
-                <br/>
+                <br />
 
 
             </c:forEach>
@@ -287,18 +287,16 @@
                       name="content_news" value="content_news"></textarea>
             <p style="font-size: 20px" id="news_count"></p>
             <input type="submit" value="Сохранить" name="modalForm2">
-
-
-            <form method="post" action="newsPage?role=manager">
-                <div id="recieverImg">
-                    <div>Перетащите изображение сюда</div>
-                </div>
-                <input id="imgInput" name="image_on_server" type="file" onchange="processFiles(this.files)">
-                <input type="submit" value="Сохранить изображение" name="modalFormImage">
-            </form>
-
-
         </form>
+
+        <form action="newsPage?role=manager" method="post" enctype="multipart/form-data">
+            <div id="recieverImg">
+                <div>Перетащите изображение сюда</div>
+            </div>
+            <input id="imgInput" type="file" name="image_on_server" onchange="processFiles(this.files)">
+            <input type="submit" value="Сохранить изображение" name="modalFormImage">
+        </form>
+
         <input type="button" value="Закрыть" onclick="modal_close()">
 
     </div>
@@ -307,7 +305,7 @@
 
 <div>
 
-    <jsp:useBean id="role" scope="request" type="java.lang.String"/>
+    <jsp:useBean id="role" scope="request" type="java.lang.String" />
     <c:if test="${role == 'manager'}">
         <form class="eduDirections" method="post" action="newsPage">
 

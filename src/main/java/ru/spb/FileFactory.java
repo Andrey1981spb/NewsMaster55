@@ -4,18 +4,18 @@ import java.util.Random;
 
 public class FileFactory {
 
-    public FileFactory(){
+    public FileFactory() {
 
     }
 
-        String nameOfFile;
+    String nameOfFile;
 
-        public String NameCreator (){
-            Random random = new Random();
+    public String NameCreator() {
+        Random random = new Random();
 
-            nameOfFile = String.valueOf(random.nextInt(150));
+        nameOfFile = String.valueOf(random.nextInt(150));
 
-            return nameOfFile;
-        }
+        return nameOfFile;
+    }
 
 }

@@ -12,12 +12,17 @@
     </style>
 
 
-    <script src="http://code.jquery.com/jquery-1.7.2.js"></script>
+    <script type='text/javascript' src='js/jquery-3.3.1.js'></script>
 
     <script type="text/javascript">
 
             $('a[name=downlist]').click(function(){
                 $('#downlist').slideToggle(500);
+            });
+
+
+            $(function() {
+                alert ('jQuery подключен и отлично работает!');
             });
 
     </script>

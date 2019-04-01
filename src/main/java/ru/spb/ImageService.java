@@ -1,9 +1,8 @@
 package ru.spb;
 
-import ru.spb.FileFactory;
+import org.apache.commons.fileupload.FileItem;
 import ru.spb.login.FilterLogin;
 
-import javax.servlet.ServletInputStream;
 import java.io.*;
 
 import java.util.logging.Logger;
@@ -11,62 +10,27 @@ import java.util.logging.Logger;
 public class ImageService {
 
     private static Logger log = Logger.getLogger(FilterLogin.class.getName());
-    byte[] request_data;
-    final int size = 256 * 256;
 
     public ImageService() {
     }
 
-    public void SaveFile(ServletInputStream servletInputStream) throws IOException {
+    public String SaveFile(FileItem fileItem) {
 
-        byte[] temporary_data = new byte[size];
-        int b, j = 0;
+        String filePath = "/Applications/apache-tomcat-9.0.12/webapps/ROOT/Images";
 
-        BufferedInputStream bf = new BufferedInputStream(servletInputStream, size);
-
-        if (bf != null) {
-
-            System.out.print("Buffer is not null");
-        } else System.out.print("Buffer is  null!!! ");
-
-        while ((b = bf.read()) != -1) {
-            temporary_data[j] = (byte) b;
-            j++;
-
+        FileFactory fileFactory = new FileFactory();
+        String nameFile = File.separator + "Picture" + fileFactory.NameCreator() + ".jpg";
+        String namePathFile = filePath + nameFile;
+        try {
+            File file = new File(namePathFile);
+            log.info("save to file: " + file.getAbsolutePath());
+            fileItem.write(file);
+        } catch (Exception e) {
+            log.info("cannot save uploaded file");
+            e.printStackTrace();
         }
 
-        if (temporary_data != null) {
-
-            System.out.print("Temporary is not null");
-        } else System.out.print("Temporary is  null!!!");
-
-        request_data = new byte[j];
-        for (int i = 0; i < j; i++) {
-            request_data[i] = temporary_data[j];
-            temporary_data = null;
-        }
-
-        if (request_data != null) {
-            System.out.print("request is not null");
-        } else System.out.print("request is  null!!!");
-
-
-            FileFactory fileFactory = new FileFactory();
-            String filePath = "newimage";
-
-        System.out.println("current path: " + new File(filePath).getAbsolutePath());
-
-            String name = "Picture" + fileFactory.NameCreator();
-
-
-            FileOutputStream fileOutputStream = new FileOutputStream(filePath + "//" + name + ".jpg");
-
-            fileOutputStream.write(request_data);
-            fileOutputStream.close();
-
-        if (fileOutputStream != null) {
-            System.out.print("fileOutputStream is not null");
-        } else System.out.print("fileOutputStream is  null!!!");
+        return "Images"+nameFile;
 
     }
 }

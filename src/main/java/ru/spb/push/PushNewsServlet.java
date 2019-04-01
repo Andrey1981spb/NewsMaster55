@@ -5,15 +5,17 @@ import ru.spb.push.directions.DirModifier;
 import ru.spb.push.directions.Directiondata;
 
 import javax.servlet.ServletException;
-import javax.servlet.ServletInputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 import java.util.logging.Logger;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 @WebServlet("/newsPage")
 public class PushNewsServlet extends HttpServlet {
@@ -68,6 +70,7 @@ public class PushNewsServlet extends HttpServlet {
 
         request.setCharacterEncoding("UTF8");
         response.setContentType("text/html; image/jpg; charset=UTF-8");
+        Newsdata newsdata = new Newsdata();
 
         if (request.getParameter("modalForm1") != null) {
 
@@ -81,36 +84,38 @@ public class PushNewsServlet extends HttpServlet {
 
         if (request.getParameter("modalForm2") != null) {
 
-            Newsdata newsdata = new Newsdata();
             newsdata.setTitle_news(request.getParameter("title_news"));
             newsdata.setContent_news(request.getParameter("content_news"));
             newsModifier.saveNewsdata(newsdata);
 
-
             doGet(request, response);
         }
 
-          if ((request.getParameter("image_on_server") != null) ){
 
+        if (ServletFileUpload.isMultipartContent(request)) {
+            try {
+                List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
+                if (!fileItems.isEmpty()) {
+                    log.info("picture to servlet ok");
+                    ImageService imageService = new ImageService();
 
-           ServletInputStream servletInputStream = request.getInputStream();
-          ImageService imageService = new ImageService();
+                    String urlimage = imageService.SaveFile(fileItems.get(0));
 
+                    System.out.println(urlimage);
 
-                if (servletInputStream != null) {
-                    log.info("stream to servlet without problem");
-                    imageService.SaveFile(servletInputStream);
+                    newsdata.setUrlimage(urlimage);
+                    newsModifier.saveNewsdata(newsdata);
 
                     doGet(request, response);
                 } else {
-                    log.info("stream to servlet is null");
-
+                    log.info("problem with getting a picture ");
                 }
+            } catch (FileUploadException e) {
+                log.info("problem with getting a picture ");
+                e.printStackTrace();
+            }
+        }
 
-
-           } else {
-              log.info("problem with getting a picture ");
-          }
 
         if (request.getParameter("forDirection") != null) {
 

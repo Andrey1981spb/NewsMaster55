@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Logger;
+
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -83,27 +84,23 @@ public class PushNewsServlet extends HttpServlet {
         }
 
         if (request.getParameter("modalForm2") != null) {
-
             newsdata.setTitle_news(request.getParameter("title_news"));
             newsdata.setContent_news(request.getParameter("content_news"));
             newsModifier.saveNewsdata(newsdata);
-
-            doGet(request, response);
+            //  doGet(request, response);
         }
-
 
         if (ServletFileUpload.isMultipartContent(request)) {
             try {
                 List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
                 if (!fileItems.isEmpty()) {
                     log.info("picture to servlet ok");
+
                     ImageService imageService = new ImageService();
-
                     String urlimage = imageService.SaveFile(fileItems.get(0));
-
                     System.out.println(urlimage);
-
                     newsdata.setUrlimage(urlimage);
+
                     newsModifier.saveNewsdata(newsdata);
 
                     doGet(request, response);
@@ -114,6 +111,8 @@ public class PushNewsServlet extends HttpServlet {
                 log.info("problem with getting a picture ");
                 e.printStackTrace();
             }
+        } else {
+            doGet(request, response);
         }
 
 

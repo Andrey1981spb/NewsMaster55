@@ -157,34 +157,20 @@
                 <version>2.3</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <!--<overlays>-->
-                    <!--<overlay>-->
-                    <!--<groupid>yourgroupid</groupid>-->
-                    <!--<artifactid>yourJqueryArtifactId</artifactid>-->
-                    <!--<type>zip</type>-->
-                    <!--<targetpath>-->
-                    <!--<includes>-->
-                    <!--<include>js/jquery.js</include>-->
-                    <!--</includes>-->
-                    <!--</targetpath>-->
-                    <!--</overlay>-->
-                    <!--</overlays>-->
+                    <overlays>
+                        <overlay>
+                            <groupid>yourgroupid</groupid>
+                            <artifactid>yourJqueryArtifactId</artifactid>
+                            <type>zip</type>
+                            <targetpath>
+                                <includes>
+                                    <include>js/jquery.js</include>
+                                </includes>
+                            </targetpath>
+                        </overlay>
+                    </overlays>
                 </configuration>
             </plugin>
-
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                    <fork>true</fork>
-                    <verbose>true</verbose>
-                    <executable>/Library/Java/JavaVirtualMachines/Comntents/Home/bin/javac</executable>
-                </configuration>
-            </plugin>
-
-
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

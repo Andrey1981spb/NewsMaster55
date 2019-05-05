@@ -4,6 +4,7 @@
 <head>
 
     <meta http-equiv="Content-Type" content="text/html charset=UTF-8">
+    <meta http-equiv="refresh" content="0"; url="newsPage?role=manager">
 
     <title>newsPage</title>
 
@@ -212,33 +213,6 @@
         }
 
 
-        function pressButton(e) {
-
-            e.stopPropagation = true;
-
-            var oAJAX = new XMLHttpRequest();
-            var fields = document.getElementById("fields");
-            oAJAX.open("POST", "newsPage?role=manager", true);
-
-            var s = encodeURIComponent(fields.elements["title_news"].value);
-
-            oAJAX.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-
-            oAJAX.send(s);
-
-            oAJAX.onreadystatechange = function () {
-                if (oAJAX.readyState == 4) {
-                    if (oAJAX.status >= 200 &&
-                        oAJAX.status < 300) {
-                        console.log("AJAX without problem")
-                    } else console.log("AJAX  problem")
-
-                }
-
-            }
-
-        }
-
 
     </script>
 
@@ -313,30 +287,26 @@
 
     <div class="modalnews" id="newsModalDialog">
 
-        <form id="fields">
+        <form id="imaginar" method="post" action="newsPage?role=manager" enctype="multipart/form-data">
 
+            <div id="fields">
              <textarea cols="45" maxlength="100" onkeyup="countf2()"
                        name="title_news" value="title_news"></textarea>
+                <textarea cols="45" maxlength="100" onkeyup="countf2()" id="news_text"
+                          name="content_news" value="content_news"></textarea>
+                <p style="font-size: 20px" id="news_count"></p>
+            </div>
 
-            <textarea cols="45" maxlength="100" onkeyup="countf2()" id="news_text"
-                      name="content_news" value="content_news"></textarea>
-            <p style="font-size: 20px" id="news_count"></p>
-
-            <input type="submit" value="Сохранить" name="modalForm2" onclick="pressButton(event)">
-
-        </form>
-
-        <form id="imaginar" method="post" action="newsPage?role=manager" enctype="multipart/form-data">
 
             <div id="recieverImg">
                 <div>Перетащите изображение сюда</div>
             </div>
             <input id="imgInput" name="image_on_server" type="file" onchange="processFiles(this.files)">
-            <input type="submit">
 
-        </form>
+            <input type="submit" value="Сохранить" name="modalForm2">
+            <input type="button" value="Закрыть" onclick="modal_close()">
 
-        <input type="button" value="Закрыть" onclick="modal_close()">
+            </form>
 
     </div>
 

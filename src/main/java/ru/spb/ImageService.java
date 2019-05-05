@@ -16,7 +16,9 @@ public class ImageService {
 
     public String SaveFile(FileItem fileItem) {
 
-        String filePath = "/Applications/apache-tomcat-9.0.12/webapps/ROOT/Images";
+       // String filePath = "/Applications/apache-tomcat-9.0.12/webapp/ROOT/Images";
+       // String filePath = "/Applications/apache-tomcat-9.0.12/bin/Images";
+        String filePath = "Images";
 
         FileFactory fileFactory = new FileFactory();
         String nameFile = File.separator + "Picture" + fileFactory.NameCreator() + ".jpg";

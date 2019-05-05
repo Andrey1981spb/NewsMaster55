@@ -9,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.HTMLDocument;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -25,6 +28,7 @@ public class PushNewsServlet extends HttpServlet {
     private final NewsModifier newsModifier = new NewsModifier();
     private final DirModifier dirModifier = new DirModifier();
     private static Logger log = Logger.getLogger(PushNewsServlet.class.getName());
+    StringService stringService = new StringService();
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) throws ServletException, IOException {
@@ -83,32 +87,48 @@ public class PushNewsServlet extends HttpServlet {
             doGet(request, response);
         }
 
-        if (request.getParameter("modalForm2") != null) {
-            newsdata.setTitle_news(request.getParameter("title_news"));
-            newsdata.setContent_news(request.getParameter("content_news"));
-            newsModifier.saveNewsdata(newsdata);
-            //  doGet(request, response);
-        }
 
         if (ServletFileUpload.isMultipartContent(request)) {
+
             try {
                 List<FileItem> fileItems = new ServletFileUpload(new DiskFileItemFactory()).parseRequest(request);
-                if (!fileItems.isEmpty()) {
-                    log.info("picture to servlet ok");
+                Iterator<FileItem> iterator = fileItems.iterator();
 
-                    ImageService imageService = new ImageService();
-                    String urlimage = imageService.SaveFile(fileItems.get(0));
-                    System.out.println(urlimage);
-                    newsdata.setUrlimage(urlimage);
+                while (iterator.hasNext()) {
 
-                    newsModifier.saveNewsdata(newsdata);
+                    FileItem fileItem = iterator.next();
 
-                    doGet(request, response);
-                } else {
-                    log.info("problem with getting a picture ");
+                    if (!fileItem.getFieldName().equals("modalForm2")
+                            & !fileItem.getFieldName().equals("Сохранить")
+                            & !fileItem.getFieldName().equals("forDirection")) {
+
+                        System.out.println(fileItem.getFieldName());
+                        InputStream inputStream = fileItem.getInputStream();
+                        String title_news = stringService.getString(inputStream);
+                        newsdata.setTitle_news(title_news);
+                        fileItem = iterator.next();
+
+                        System.out.println(fileItem.getFieldName());
+                        inputStream = fileItem.getInputStream();
+                        String content_news = stringService.getString(inputStream);
+                        newsdata.setContent_news(content_news);
+                        fileItem = iterator.next();
+
+                        if (fileItem.getFieldName().equals("image_on_server")) {
+                            System.out.println(fileItem.getFieldName());
+                            ImageService imageService = new ImageService();
+                            String urlimage = imageService.SaveFile(fileItem);
+                            System.out.println(urlimage);
+                            newsdata.setUrlimage(urlimage);
+                        }
+
+                        newsModifier.saveNewsdata(newsdata);
+                        doGet(request, response);
+                   }
                 }
+
             } catch (FileUploadException e) {
-                log.info("problem with getting a picture ");
+                log.info("problem with getting fields");
                 e.printStackTrace();
             }
         } else {

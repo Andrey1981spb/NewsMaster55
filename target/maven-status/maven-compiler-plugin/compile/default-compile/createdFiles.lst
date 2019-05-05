@@ -9,11 +9,13 @@ ru/spb/ORMUnitTestCase.class
 ru/spb/push/UserDAO.class
 ru/spb/Main.class
 ru/spb/push/Guiconsole.class
+ru/spb/push/StringService.class
 ru/spb/push/PushNewsServlet.class
 ru/spb/login/FilterLogin.class
 ru/spb/login/AuthorServlet.class
 ru/spb/FileFactory.class
 ru/spb/login/QueryDBLoginClass2.class
+ru/spb/push/directions/StringToArray.class
 ru/spb/FactoryClass.class
 ru/spb/login/Allert.class
 ru/spb/push/Guiconsole$SQLActionListener.class
